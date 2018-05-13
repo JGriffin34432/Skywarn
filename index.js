@@ -1,11 +1,23 @@
 //requiring needed modules
 const Discord = require('discord.js');
+const fs = require("fs")
 const request = require('request');
+const config = require("./config.json");
 
 //make Discord bot client
-const bot = new Discord.Client();
+const client = new Discord.Client();
+const prefix = "!"
+
+const hook = new Discord.WebhookClient('HIDDEN DUE TO PRIVACY', 'HIDDEN DUE TO PRIVACY');
+hook.send('⚡ ⛅ | Skywarn v3.1.2 is online. Be sure to #StayWeatherAware.');
 
 
+
+client.on("guildCreate", guild => {
+
+	console.log("Some one added the test bot to a server created by: " + guild.owner.user.username)
+
+});
 
 
 //Math functions
@@ -72,12 +84,17 @@ function realDate(unx){
 var commands = [];
 
 //on bot ready
-bot.on('ready', () => {
-  console.log(`Bot ${bot.user.tag} online`);
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity('!weather <zip code> | #StayWeatherAware', { type: 'Playing' });
+  client.user.setStatus('online')
 });
 
+
 //on bot message
-bot.on('message', (message) => {
+client.on('message', (message) => {
+	
+
 
   //Command handler
   function mainIn(string, array){
@@ -108,10 +125,11 @@ bot.on('message', (message) => {
   }
 
   //Commands
+ 
   var weather = {
-    trigger: "!weather ",
+	trigger: "!weather ",
     exec: function(zip, message){
-      var url = "http://api.openweathermap.org/data/2.5/weather?zip="+zip+"&APPID=ID-GOES-HERE"; //To Get AppID, go to https://openweathermap.org/appid
+      var url = "http://api.openweathermap.org/data/2.5/weather?zip="+zip+"&APPID=5f7a3ebdd7c249e2afbbb8cec4368b1d"; //To Get AppID, go to https://openweathermap.org/appid
       request(url, function(e,r,b){
         var p = JSON.parse(b);
         console.log(p);
@@ -121,6 +139,7 @@ bot.on('message', (message) => {
             "__**"+p.name+" Weather | "+Math.round(kelToFar(p.main.temp))+"°F "+emoj(p.weather[0].icon)+"**__ \n"+p.weather[0].main+" with a high of **"+Math.round(kelToFar(p.main.temp_max))+"°F** and a low of **"+Math.round(kelToFar(p.main.temp_min))+"°F** \nHumidity at **"+p.main.humidity+"%** and Atmospheric Pressure at **"+p.main.pressure+" hPa** \nWind speed **"+Math.round(p.wind.speed * 2.997446 * 100) / 100+" mph** from bearing **"+p.wind.deg+"°** \nSunrise **"+realTime(p.sys.sunrise)+"**, Sunset **"+realTime(p.sys.sunset)+"** \nMeasured at Longitude **"+p.coord.lon+"**, Latitude **"+p.coord.lat+"** \n*Data was updated at "+realDate(p.dt)+"*"
           );
         }
+		
       });
     },
     args: 2
@@ -132,6 +151,111 @@ bot.on('message', (message) => {
   
 });
 
+client.on("message", async (message) => {
+
+	if (message.author.bot) return;
+
+	if (!message.content.startsWith(prefix)) return;
+
+	
+
+	let command = message.content.split(" ")[0];
+
+	command = command.slice(prefix.length);
+
+	
+
+	let args = message.content.split(" ").slice(1);
+
+	
+
+	if (command === "ping") {
+
+		message.channel.send(`Pong! Time took: ${Date.now() - message.createdTimestamp} ms`);
+
+	} else
+	
+    if (command === "about") {
+		
+		message.channel.send(
+`Bot Name: Skywarn
+Author: <@252084047264743428>
+Version: v1.3.2`);
+		
+	} else
+		
+	if (command === "eas") {
+		
+		message.channel.send(
+		
+`The Emergency Alert System (EAS) is a national warning system in the United States put into place on January 1, 1997 (approved by Federal Communications Commission (FCC) in November 1994),[1] when it replaced the Emergency Broadcast System (EBS), which in turn replaced the CONELRAD System. The official EAS is designed to enable the President of the United States to speak to the United States within 10 minutes.[2] In addition to this requirement, EAS is also designed to alert the public of local weather emergencies such as tornadoes and flash floods (and in some cases severe thunderstorms depending on the severity of the storm). The most recent National EAS Test was performed on September 27, 2017 at 2:20 pm EDT (11:20 am PDT).[3]
+EAS is jointly coordinated by the Federal Emergency Management Agency (FEMA), the Federal Communications Commission (FCC) and the National Weather Service (NOAA/NWS). The EAS regulations and standards are governed by the Public Safety and Homeland Security Bureau of the FCC. EAS has become part of Integrated Public Alert and Warning System (IPAWS), a program of FEMA.
+
+Source: <https://en.wikipedia.org/wiki/Emergency_Alert_System>
+
+http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/EAS.jpg`);
+
+    
+	} else
+		
+	if (command === "invite") {
+		
+		message.channel.send(`Here you go: https://discordapp.com/api/oauth2/authorize?client_id=434112673072807936&permissions=536947712&scope=bot`);
+		
+		
+	} else
+
+
+
+	if (command === "say") {
+
+		message.delete()
+
+        const embed = new Discord.RichEmbed()
+
+		.setColor(0x954D23)
+
+		.setDescription(message.author.username + " says: " + args.join(" "));
+
+		message.channel.send({embed})
+
+	} else
+
+
+
+	if (command == "help") {
+
+		const embed = new Discord.RichEmbed()
+
+		.setColor(0x954D23)
+
+		.setTitle("Command List:")
+
+		.addField("!help", "Will give the current command list")
+
+		.addField("!ping", "WIll show the ping time for the bot")
+
+		.addField("!say [text]", "Will make the bot say something")
+
+		.addField("!announcement [text]", "Will make the bot say an announcement and tag everyone")
+
+		.addField("!cat", "Will send a random cat image")
+		
+	     .addField("!weather <zip code>", "Will give you a forecast based on the nearest weather station by your zip code.")
+		 
+		 .addField("!eas", "Displays information about The Emergency Alert System.")
+		 
+		 .addField("!invite", "Displays invite link to invite the bot to a discord server.";
+
+		message.channel.send({embed})
+
+	}
+	
+
+
+
+});
+
 
 //login bot
-bot.login('BOT TOKEN GOES HERE');
+client.login(config.token);
