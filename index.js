@@ -9,7 +9,7 @@ const client = new Discord.Client();
 const prefix = "!"
 
 const hook = new Discord.WebhookClient('HIDDEN DUE TO PRIVACY', 'HIDDEN DUE TO PRIVACY');
-hook.send('⚡ ⛅ | Skywarn v3.1.2 is online. Be sure to #StayWeatherAware.');
+hook.send('⚡ ⛅ | Skywarn v1.3.2 is online. Be sure to #StayWeatherAware.');
 
 
 
