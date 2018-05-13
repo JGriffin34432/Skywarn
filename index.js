@@ -245,7 +245,7 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 		 
 		 .addField("!eas", "Displays information about The Emergency Alert System.")
 		 
-		 .addField("!invite", "Displays invite link to invite the bot to a discord server.";
+		 .addField("!invite", "Displays invite link to invite the bot to a discord server.)";
 
 		message.channel.send({embed})
 
