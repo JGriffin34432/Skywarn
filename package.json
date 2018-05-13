@@ -1,6 +1,6 @@
 {
   "name": "skywarn",
-  "version": "1.0.1",
+  "version": "1.3.2",
   "description": "The most basic weather bot you will ever need.",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "discord.js": "^11.3.2",
+    "fs": "0.0.1-security",
     "raven": "^2.6.1",
     "request": "^2.85.0"
   }
