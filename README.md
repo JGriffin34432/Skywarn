@@ -16,3 +16,5 @@ Invite the bot: https://discordapp.com/api/oauth2/authorize?client_id=4341126730
 `!eas` - Displays info about EAS.
 
 `!help` - Displays help about the bot.
+
+`!ping` - Pings the bot to see if it is responding.
