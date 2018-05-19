@@ -3,6 +3,13 @@ const Discord = require('discord.js');
 const fs = require("fs")
 const request = require('request');
 const config = require("./config.json");
+const ytdl = require('ytdl-core');
+
+var youtube = require('./youtube.js');
+
+var ytAudioQueue = [];
+var dispatcher = null;
+
 
 //make Discord bot client
 const client = new Discord.Client();
@@ -10,6 +17,130 @@ const prefix = "!"
 
 const hook = new Discord.WebhookClient('HIDDEN DUE TO PRIVACY', 'HIDDEN DUE TO PRIVACY');
 hook.send('⚡ ⛅ | Skywarn v1.3.2 is online. Be sure to #StayWeatherAware.');
+
+client.on('message', function(message) {
+    var messageParts = message.content.split(' ');
+    var command = messageParts[0].toLowerCase();
+    var parameters = messageParts.splice(1, messageParts.length);
+
+    switch (command) {
+
+        case "!join" : 
+        message.reply("Attempting to join channel " + parameters[0]);
+        JoinCommand(parameters[0], message);
+        break;
+    
+        case "!play" :
+        PlayCommand(parameters.join(" "), message);
+        break;
+
+        case "!playqueue":
+        PlayQueueCommand(message);
+        break;
+    }
+});
+
+
+    function PlayCommand(searchTerm) {
+        if(client.voiceConnections.array().length == 0) {
+            var defaultVoiceChannel = client.channels.find(val => val.type === 'voice').name;
+            JoinCommand(defaultVoiceChannel);
+        }
+        youtube.search(searchTerm, QueueYtAudioStream);
+    }
+
+    function PlayQueueCommand(message) {
+        var queueString = "";
+
+        for(var x = 0; x < ytAudioQueue.length; x++) {
+            queueString += ytAudioQueue[x].videoName + ", ";
+        }
+        queueString = queueString.substring(0, queueString.length - 2);
+        message.reply(queueString);
+    }
+
+    function JoinCommand(ChannelName) {
+        var voiceChannel = GetChannelByName(ChannelName);
+
+        if (voiceChannel) {
+            voiceChannel.join();
+            console.log("Joined " + voiceChannel.name);
+        }
+        
+        return voiceChannel;
+        
+    }
+
+    /* Helper Methods */
+
+    function GetChannelByName(name) {
+        var channel = client.channels.find(val => val.name === name);
+        return channel;
+    }
+
+  
+
+    function QueueYtAudioStream(videoId, videoName) {
+        var streamUrl = youtube.watchVideoUrl + videoId;
+
+        if (!ytAudioQueue.length) {
+            ytAudioQueue.push(
+                {
+                    'streamUrl' : streamUrl,
+                    'videoName' : videoName
+                }
+            );
+            console.log('Queued audio ' + videoName);
+            PlayStream(ytAudioQueue[0].streamUrl);
+        }
+        else {
+            ytAudioQueue.push(
+                {
+                    'streamUrl' : streamUrl,
+                    'videoName' : videoName
+                }
+            );
+        }
+        console.log("Queued audio " + videoName);
+    }
+
+    function PlayStream(streamUrl) {
+        const streamOptions = {seek: 0, volume: 1};
+
+        if (streamUrl) {
+            const stream = ytdl(streamUrl, {filter: 'audioonly'});
+
+            if (dispatcher == null) {
+                var voiceConnection = client.voiceConnections.first();
+
+                if(voiceConnection) {
+                    console.log("Now Playing " + ytAudioQueue[0].videoname);
+                    dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+
+                    dispatcher.on('end', () => {
+                        dispatcher = null;
+                        PlayNextStreamInQueue();
+                    });
+
+                    dispatcher.on('error', (err) => {
+                        console.log(err);
+                    });
+                }
+            } else {
+                dispatcher = client.voiceConnections.first().playStream(stream, streamOptions);
+            }
+            
+        }
+    }
+
+    function PlayNextStreamInQueue() {
+        ytAudioQueue.splice(0, 1);
+
+        if (ytAudioQueue.length != 0) {
+            console.log("now Playing " + ytAudioQueue[0].videoName);
+            PlayStream(ytAudioQueue[0].streamUrl);
+        }
+    }
 
 
 
@@ -87,7 +218,7 @@ var commands = [];
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity('!weather <zip code> | #StayWeatherAware', { type: 'Playing' });
-  client.user.setStatus('online')
+  client.user.setStatus('idle')
 });
 
 
@@ -245,7 +376,7 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 		 
 		 .addField("!eas", "Displays information about The Emergency Alert System.")
 		 
-		 .addField("!invite", "Displays invite link to invite the bot to a discord server.)";
+		 .addField("!invite", "Displays invite link to invite the bot to a discord server.");
 
 		message.channel.send({embed})
 
