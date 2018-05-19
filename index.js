@@ -389,4 +389,4 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 
 
 //login bot
-client.login(config.token);
+client.login(process.env.BOT_TOKEN);
