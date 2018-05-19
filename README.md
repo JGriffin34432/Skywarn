@@ -1,4 +1,5 @@
 ![David](https://img.shields.io/david/JGriffin34432/Skywarn.svg)
+![GitHub release](https://img.shields.io/github/release/JGriffin34432/Skywarn.svg)
 [![Discord](https://discordapp.com/api/guilds/355475139451682828/widget.png)](https://discord.io/SPCJGriffin2459)
 
 # Skywarn
