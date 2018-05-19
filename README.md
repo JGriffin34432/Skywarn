@@ -21,3 +21,10 @@ Invite the bot: https://discordapp.com/api/oauth2/authorize?client_id=4341126730
 
 `!announcement [text]` - Will make the bot say an announcement and tag everyone
 
+`!cat` - Will send a random cat image
+
+`!say [text]` - Will make the bot say something
+
+`!invite` Displays invite link to invite the bot to a discord server.
+
+
