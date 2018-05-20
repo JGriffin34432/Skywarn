@@ -29,3 +29,4 @@ Invite the bot: https://discordapp.com/api/oauth2/authorize?client_id=4341126730
 `!invite` Displays invite link to invite the bot to a discord server.
 
 
+`Moderation Commands Coming Soon.`
