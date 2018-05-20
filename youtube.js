@@ -1,6 +1,6 @@
 var request = require('superagent');
 
-const API_KEY = (process.env.API_KEY);
+const API_KEY = "GOOGLE API KEY HERE";
 const WATCH_VIDEO_URL = "https://www.youtube.com/watch?v=";
 
 exports.watchVideoUrl = WATCH_VIDEO_URL;
