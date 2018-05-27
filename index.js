@@ -15,8 +15,8 @@ var dispatcher = null;
 const client = new Discord.Client();
 const prefix = "!"
 
-const hook = new Discord.WebhookClient('HIDDEN DUE TO PRIVACY', 'HIDDEN DUE TO PRIVACY');
-hook.send('⚡ ⛅ | Skywarn v1.3.2 is online. Be sure to #StayWeatherAware.');
+const hook = new Discord.WebhookClient('HIDDEN', 'HIDDEN');
+hook.send('⚡ ⛅ | Skywarn v2.1.2 is online. Be sure to #StayWeatherAware.');
 
 client.on('message', function(message) {
     var messageParts = message.content.split(' ');
@@ -218,7 +218,7 @@ var commands = [];
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setActivity('!weather <zip code> | #StayWeatherAware', { type: 'Playing' });
-  client.user.setStatus('idle')
+  client.user.setStatus('online')
 });
 
 
@@ -259,8 +259,8 @@ client.on('message', (message) => {
  
   var weather = {
 	trigger: "!weather ",
-    exec: function(zip, message){
-      var url = "http://api.openweathermap.org/data/2.5/weather?zip="+zip+"&APPID=5f7a3ebdd7c249e2afbbb8cec4368b1d"; //To Get AppID, go to https://openweathermap.org/appid
+    exec: function(q, message){
+      var url = "http://api.openweathermap.org/data/2.5/weather?q="+q+"&APPID=HIDDEN"; //To Get AppID, go to https://openweathermap.org/appid
       request(url, function(e,r,b){
         var p = JSON.parse(b);
         console.log(p);
@@ -372,7 +372,7 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 
 		.addField("!cat", "Will send a random cat image")
 		
-	     .addField("!weather <zip code>", "Will give you a forecast based on the nearest weather station by your zip code.")
+	     .addField("!weather <zip code>", "Also to do a city name, you must do it like this <!weather baltimore,md,us> but if it is like <!weather greenville spartanburg,sc,us> it will not work. So that means I recommend using a zip code until this bug is fixed.")
 		 
 		 .addField("!eas", "Displays information about The Emergency Alert System.")
 		 
@@ -389,4 +389,4 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 
 
 //login bot
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);
