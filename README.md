@@ -1,3 +1,5 @@
+# CITY NAMES ARE STILL BUGGY, SO I STILL RECOMMEND USING A ZIP CODE!!!!
+
 ![David](https://img.shields.io/david/JGriffin34432/Skywarn.svg)
 ![GitHub release](https://img.shields.io/github/release/JGriffin34432/Skywarn.svg)
 
@@ -11,7 +13,7 @@ Invite the bot: [https://discordapp.com/api/oauth2/authorize?client_id=434112673
 
 # Commands
 
-`!weather <zip code>` - Displays weather based on the closest city near your zip code. (ZIP CODE ONLY, CITY NAMES DON'T WORK)
+`!weather <city/zipcode>` - Displays weather based on the closest city near your zip code/city. Also to do a city name, you must do it like this `!weather baltimore,md,us` but if it is like `!weather greenville spartanburg,sc,us` it will not work. So that means I recommend using a zip code until this bug is fixed.
 
 `!eas` - Displays info about EAS.
 
