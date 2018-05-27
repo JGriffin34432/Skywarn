@@ -14,7 +14,7 @@ Invite the bot: [https://discordapp.com/api/oauth2/authorize?client_id=434112673
 
 # Commands
 
-`!weather <city/zipcode>` - Displays weather based on the closest city near your zip code/city. Also to do a city name, you must do it like this `!weather baltimore,md,us` but if it is like `!weather greenville spartanburg,sc,us` it will not work. So that means I recommend using a zip code until this bug is fixed.
+`!weather <city/zipcode>` - Displays weather based on the closest city near your zip code/city. To do a city name you must do it the way i have it typed out or it will not work. <!weather baltimore,md,us> and cities with two words you must do this <!weather severna+park,md,us>
 
 `!eas` - Displays info about EAS.
 
