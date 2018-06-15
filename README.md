@@ -2,7 +2,7 @@
 
 ![David](https://img.shields.io/david/JGriffin34432/Skywarn.svg)
 ![GitHub release](https://img.shields.io/github/release/JGriffin34432/Skywarn.svg)
-[![Discord Server](https://discordapp.com/api/guilds/355475139451682828/embed.png)](https://discord.gg/t6UKHU7)
+[![Discord Server](https://discordapp.com/api/guilds/355475139451682828/embed.png)](https://discord.io/SPCJGriffin2459)
 [![Patreon](http://ionicabizau.github.io/badges/patreon.svg)](https://patreon.com/SPCJGriffin2459)
 
 # Skywarn
