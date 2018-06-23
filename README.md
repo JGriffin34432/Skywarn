@@ -10,6 +10,8 @@
 # Skywarn
 A basic weather bot.
 
+[![Discord Bot Status](https://discordbots.org/api/widget/434112673072807936.svg)](https://discordbots.org/bot/434112673072807936)
+
 For support click the discord button above to join the support server.
 
 Invite the bot: [https://discordapp.com/api/oauth2/authorize?client_id=434112673072807936&permissions=536947712&scope=bot](https://discordapp.com/api/oauth2/authorize?client_id=434112673072807936&permissions=536947712&scope=bot)
