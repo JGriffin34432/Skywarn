@@ -5,7 +5,7 @@
 [![Discord Server](https://discordapp.com/api/guilds/355475139451682828/embed.png)](https://discord.io/SPCJGriffin2459)
 [![Patreon](http://ionicabizau.github.io/badges/patreon.svg)](https://patreon.com/SPCJGriffin2459)
 [![Build Status](https://semaphoreci.com/api/v1/jgriffin34432/skywarn/branches/master/badge.svg)](https://semaphoreci.com/jgriffin34432/skywarn)
-[![Discord Bots List Owner](https://discordbots.org/api/widget/owner/434112673072807936.svg)]
+[![Discord Bots List Owner](https://discordbots.org/api/widget/owner/434112673072807936.svg)](https://discordbots.org/bot/434112673072807936)
 
 # Skywarn
 A basic weather bot.
