@@ -16,17 +16,13 @@ Invite the bot: [https://discordapp.com/api/oauth2/authorize?client_id=434112673
 
 # Commands
 
-`!weather <city/zipcode>` - Displays weather based on the closest city near your zip code/city. To do a city name you must do it the way i have it typed out or it will not work. <!weather baltimore,md,us> and cities with two words you must do this <!weather severna+park,md,us>
+`!weather <city/zipcode>` - Displays weather based on the closest city near your zip code/city. To do a city name you must do it the way i have it typed out or it will not work. <!weather baltimore,md,us> and cities with two words you must do this <!weather severna+park,md,us> Also some city names do not work, so keep trying until one does. Its not the bot, its the OpenWeatherMap API.
 
 `!eas` - Displays info about EAS.
 
 `!help` - Displays help about the bot.
 
 `!ping` - Pings the bot to see if it is responding.
-
-`!announcement [text]` - Will make the bot say an announcement and tag everyone
-
-`!cat` - Will send a random cat image
 
 `!say [text]` - Will make the bot say something
 
