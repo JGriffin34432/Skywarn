@@ -4,6 +4,10 @@ const fs = require("fs")
 const request = require('request');
 const config = require("./config.json");
 const ytdl = require('ytdl-core');
+const DBL = require("dblapi.js");
+
+
+
 
 var youtube = require('./youtube.js');
 
@@ -14,9 +18,11 @@ var dispatcher = null;
 //make Discord bot client
 const client = new Discord.Client();
 const prefix = "!"
+const dbl = new DBL('', client);
 
-const hook = new Discord.WebhookClient('HIDDEN', 'HIDDEN');
-hook.send('⚡ ⛅ | Skywarn v2.1.2 is online. Be sure to #StayWeatherAware.');
+const hook = new Discord.WebhookClient('', '');
+hook.send('⚡ ⛅ | Skywarn v2.2.0 is online. Be sure to #StayWeatherAware.');
+
 
 client.on('message', function(message) {
     var messageParts = message.content.split(' ');
@@ -26,11 +32,13 @@ client.on('message', function(message) {
     switch (command) {
 
         case "!join" : 
+		if(message.author.id !== config.ownerID) return;
         message.reply("Attempting to join channel " + parameters[0]);
         JoinCommand(parameters[0], message);
         break;
     
         case "!play" :
+		if(message.author.id !== config.ownerID) return;
         PlayCommand(parameters.join(" "), message);
         break;
 
@@ -68,6 +76,8 @@ client.on('message', function(message) {
         }
         
         return voiceChannel;
+		
+		
         
     }
 
@@ -260,15 +270,21 @@ client.on('message', (message) => {
   var weather = {
 	trigger: "!weather ",
     exec: function(q, message){
-      var url = "http://api.openweathermap.org/data/2.5/weather?q="+q+"&APPID=HIDDEN"; //To Get AppID, go to https://openweathermap.org/appid
+      var url = "http://api.openweathermap.org/data/2.5/weather?q="+q+"&APPID=5f7a3ebdd7c249e2afbbb8cec4368b1d"; //To Get AppID, go to https://openweathermap.org/appid
       request(url, function(e,r,b){
         var p = JSON.parse(b);
         console.log(p);
         if(p.main != undefined){
           console.log(message.author.username+" from "+message.author.channel+" requested the weather ("+Date.now()+")");
-          message.channel.send(
-            "__**"+p.name+" Weather | "+Math.round(kelToFar(p.main.temp))+"°F "+emoj(p.weather[0].icon)+"**__ \n"+p.weather[0].main+" with a high of **"+Math.round(kelToFar(p.main.temp_max))+"°F** and a low of **"+Math.round(kelToFar(p.main.temp_min))+"°F** \nHumidity at **"+p.main.humidity+"%** and Atmospheric Pressure at **"+p.main.pressure+" hPa** \nWind speed **"+Math.round(p.wind.speed * 2.997446 * 100) / 100+" mph** from bearing **"+p.wind.deg+"°** \nSunrise **"+realTime(p.sys.sunrise)+"**, Sunset **"+realTime(p.sys.sunset)+"** \nMeasured at Longitude **"+p.coord.lon+"**, Latitude **"+p.coord.lat+"** \n*Data was updated at "+realDate(p.dt)+"*"
-          );
+		  
+        const embed = new Discord.RichEmbed()
+		
+		.setColor(0x954D23)
+		
+		.setDescription("__**"+p.name+" Weather | "+Math.round(kelToFar(p.main.temp))+"°F "+emoj(p.weather[0].icon)+"**__ \n"+p.weather[0].main+" with a high of **"+Math.round(kelToFar(p.main.temp_max))+"°F** and a low of **"+Math.round(kelToFar(p.main.temp_min))+"°F** \nHumidity at **"+p.main.humidity+"%** and Atmospheric Pressure at **"+p.main.pressure+" hPa** \nWind speed **"+Math.round(p.wind.speed * 2.997446 * 100) / 100+" mph** from bearing **"+p.wind.deg+"°** \nSunrise **"+realTime(p.sys.sunrise)+"**, Sunset **"+realTime(p.sys.sunset)+"** \nMeasured at Longitude **"+p.coord.lon+"**, Latitude **"+p.coord.lat+"** \n*Data was updated at "+realDate(p.dt)+"*");
+
+          message.channel.send({embed})
+          
         }
 		
       });
@@ -339,6 +355,9 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 
 
 	if (command === "say") {
+		
+		if(message.author.id !== config.ownerID) return;
+
 
 		message.delete()
 
@@ -368,11 +387,7 @@ http://4.bp.blogspot.com/-bt6H9Gace5w/TW_f0_7PC0I/AAAAAAAAAp0/FQpLzY9Nw88/s1600/
 
 		.addField("!say [text]", "Will make the bot say something")
 
-		.addField("!announcement [text]", "Will make the bot say an announcement and tag everyone")
-
-		.addField("!cat", "Will send a random cat image")
-		
-	     .addField("!weather <zip code>", "Also to do a city name, you must do it like this <!weather baltimore,md,us> but if it is like <!weather greenville spartanburg,sc,us> it will not work. So that means I recommend using a zip code until this bug is fixed.")
+	     .addField("!weather <zip code>", "To do a city name you must do it the way i have it typed out or it will not work. <!weather baltimore,md,us> and cities with two words you must do this <!weather severna+park,md,us>")
 		 
 		 .addField("!eas", "Displays information about The Emergency Alert System.")
 		 
