@@ -17,7 +17,7 @@
     "ffmpeg-binaries": "^4.0.0",
     "fs": "0.0.1-security",
     "http": "0.0.0",
-    "node-gyp": "^3.7.0",
+    "node-gyp": "^3.8.0",
     "opusscript": "0.0.6",
     "raven": "^2.6.3",
     "rebuild": "^0.1.2",
