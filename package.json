@@ -21,7 +21,7 @@
     "opusscript": "0.0.6",
     "raven": "^2.6.3",
     "rebuild": "^0.1.2",
-    "request": "^2.87.0",
+    "request": "^2.88.0",
     "superagent": "^3.8.3",
     "youtube-playlist-info": "^1.1.2",
     "ytdl-core": "^0.20.4"
