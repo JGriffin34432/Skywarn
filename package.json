@@ -19,7 +19,7 @@
     "http": "0.0.0",
     "node-gyp": "^3.7.0",
     "opusscript": "0.0.6",
-    "raven": "^2.6.3",
+    "raven": "^2.6.4",
     "rebuild": "^0.1.2",
     "request": "^2.87.0",
     "superagent": "^3.8.3",
